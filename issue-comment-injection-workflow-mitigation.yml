@@ -1,0 +1,19 @@
+name: Mitigated Issue Comment Injection Workflow 
+ 
+on: 
+  issue_comment: 
+    types: [created]
+
+env:
+  COMMENT_BODY: ${{ github.event.comment.body }}
+ 
+jobs: 
+  comment-job: 
+    runs-on: ubuntu-latest 
+    if: contains(github.event.comment.body, '/benchmark')
+    steps: 
+      - name: Checkout the repository 
+        uses: actions/checkout@v4 
+      - name: Run bash command using comment body 
+        run: | 
+          echo "The comment body contains: $COMMENT_BODY"
