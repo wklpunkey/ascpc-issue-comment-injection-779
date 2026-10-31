@@ -1,8 +1,11 @@
-name: Issue Comment Injection Workflow 
+name: Mitigated Issue Comment Injection Workflow 
  
 on: 
   issue_comment: 
-    types: [created] 
+    types: [created]
+
+env:
+  COMMENT_BODY: ${{ github.event.comment.body }}
  
 jobs: 
   comment-job: 
@@ -13,5 +16,4 @@ jobs:
         uses: actions/checkout@v4 
       - name: Run bash command using comment body 
         run: | 
-          comment_body="${{ github.event.comment.body }}" 
-          echo "The comment body contains: $comment_body"
+          echo "The comment body contains: $COMMENT_BODY"
